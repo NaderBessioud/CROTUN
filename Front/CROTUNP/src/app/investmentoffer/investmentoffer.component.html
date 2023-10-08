@@ -1,0 +1,357 @@
+
+
+
+<ng-container *ngIf="type=='manager'">
+
+
+
+
+<button class="btn btn-round btn-sm btn-success" (click)="open(mymodal1)"> <fa-icon [icon]="faPlus"></fa-icon> Add new Investment offer</button>
+<br><br>
+<ng-template #mymodal1 let-modal1>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title" >Add new Investment offer</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal1.dismiss('Cross click')">
+            <span aria-hidden="true" (click)="cancel()">×</span>
+        </button>
+
+    </div>
+    <div class="center" style="margin-right: 20px;margin-left: 20px;">
+        <form #f="ngForm">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Type</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="type" [(ngModel)]="investmentoffer.type"  [ngModelOptions]="{standalone : true} "  required ngModel #l="ngModel">
+            </div>
+            <div class="alert alert-danger" *ngIf="l.invalid && l.touched">
+                the type is required field
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="investmentoffer.description"  [ngModelOptions]="{standalone : true}"  required ngModel #a="ngModel"></textarea>
+            </div>
+
+            <div class="alert alert-danger" *ngIf="a.invalid && a.touched">
+                the description is required field
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Price DNT</label>
+                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Price DNT" [(ngModel)]="investmentoffer.price"  [ngModelOptions]="{standalone : true}"  required ngModel #z="ngModel">
+            </div>
+
+            <div class="alert alert-danger" *ngIf="z.invalid && z.touched">
+                the type is price field
+            </div>
+
+            <br>
+            <div style="margin-left: 20px;margin-bottom: 20px;">
+                <button style="margin-right: 10px;" type="button" class="btn btn-success" (click)="addInvestmentoffer(investmentoffer)" (click)="modal1.close('Save click')" [disabled]="f.invalid" >Save</button>
+                <button type="button" class="btn btn-danger" (click)="modal1.close('Save click')" >Cancel</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+
+
+<div class="card text-center" style="width: 300px;height: 300px;">
+    <div class="card-header">
+        Total investment : {{countInvestment}}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">
+            <div style="width: 350px;height: 350px;margin-left: -30px;">
+                <canvas id="myChart"></canvas>
+            </div>
+        </h5>
+
+    </div>
+</div>
+<br>
+
+
+
+
+
+<!--
+Available Investment Offer
+<table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Date created</th>
+        <th scope="col">Type</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
+        <th scope="col">Status</th>
+    </tr>
+    </thead>
+
+    <tbody  *ngFor='let p of listInvestmentoffers | paginate: {itemsPerPage:5, currentPage: p} ' >
+    <tr>
+
+        <td>{{p.dateCreated}} </td>
+        <td>{{p.type}}</td>
+        <td>{{p.description}}</td>
+        <td>{{p.price}} DNT</td>
+        <td>{{p.status}}</td>
+    </tr>
+
+
+    </tbody>
+
+</table>
+
+
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+<hr>
+-->
+
+<div class="panel panel-primary">
+
+    <div class="panel-heading">
+
+        <h1 class="panel-title">
+
+      <span class="glyphicon glyphicon-music">
+
+      </span>
+
+            All investment
+
+        </h1>
+
+    </div>
+
+    <div class="panel-body">
+
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">Date created</th>
+                <th scope="col">Date sell</th>
+                <th scope="col">Type</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+
+            <tbody  *ngFor='let p of listoffer ' >
+            <tr>
+
+                <td>{{p.dateCreated}} </td>
+                <td>
+                    <div *ngIf="p.dateSell  == null ; else elseBlock"><div style="background: red;color: white;border-radius: 5px;text-align:center;">Not sold </div></div>
+                    <ng-template #elseBlock><div style="background: green;color: white;border-radius: 5px;text-align:center;">{{p.dateSell}}</div></ng-template>
+                </td>
+                <td>{{p.type}}</td>
+                <td>{{p.description}}</td>
+                <td>{{p.price}} DNT</td>
+
+                <td>
+                    <button type="button" class="btn btn-outline-primary"
+                            (click)="open(mymodal)" style="margin-right: 10px;"><fa-icon [icon]="faPencilAlt"></fa-icon> </button>
+                    <ng-template #mymodal let-modal >
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="modal-basic-title">Edit</h4>
+                            <button type="button" class="close" aria-label="Close"
+                                    (click)="modal.dismiss('Cross click')">
+                                <span aria-hidden="true" (click)="cancel()">×</span>
+
+                            </button>
+
+                        </div>
+                        <div>
+                            <form>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">Type</label>
+                                        <input type="text" class="form-control" [(ngModel)]="p.type" [ngModelOptions]="{standalone : true}" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Description</label>
+                                        <input type="text" class="form-control" [(ngModel)]="p.description" [ngModelOptions]="{standalone : true}" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Price</label>
+                                        <input type="number" class="form-control" [(ngModel)]="p.price" [ngModelOptions]="{standalone : true}" />
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button class="btn btn-success"(click)="getUpdateInvestmentoffer(p)" (click)="modal.close('Save click')">Save</button>
+
+                                    <button type="button" class="btn btn-danger"
+                                            (click)="modal.close('Save click')" (click)="cancel()">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </ng-template>
+                    <button class="btn btn-danger" (click)="archiveInvestmentoffer(p.idino)" ><fa-icon [icon]="faArchive"></fa-icon></button>
+                </td>
+            </tr>
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+
+<hr>
+
+
+
+<div class="panel panel-primary">
+
+    <div class="panel-heading">
+
+        <h1 class="panel-title">
+
+      <span class="glyphicon glyphicon-music">
+
+      </span>
+
+            Archived investment
+        </h1>
+
+    </div>
+
+    <div class="panel-body">
+
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">Date created</th>
+                <th scope="col">Date sell</th>
+                <th scope="col">Type</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+            </tr>
+            </thead>
+
+            <tbody  *ngFor='let p of listArchivedInvestmentoffers ' >
+            <tr>
+
+                <td>{{p.dateCreated}} </td>
+                <td>
+                    <div *ngIf="p.dateSell  == null ; else elseBlock"><div style="background: red;color: white;border-radius: 5px;text-align:center;">Not sold</div></div>
+                    <ng-template #elseBlock><div style="background: green;color: white;border-radius: 5px;text-align:center;">{{p.dateSell}}</div></ng-template>
+                </td>
+                <td>{{p.type}}</td>
+                <td>{{p.description}}</td>
+                <td>{{p.price}} DNT</td>
+
+
+            </tr>
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<script>
+    var myModal = document.getElementById('myModal')
+    var myInput = document.getElementById('myInput')
+
+    myModal.addEventListener('shown.bs.modal', function () {
+        myInput.focus()
+    })
+
+
+
+</script>
+
+</ng-container>
+
+
+
+<ng-container *ngIf="type=='investor'">
+
+
+
+<div style="font-size: 9em;font-family:serif ;">
+    N E W  <br>
+    O F F E R S <br>
+    E V E R Y D A Y
+</div>
+
+
+    <div *ngIf="listRecommandation != null ;then contenu_bon else contenu_pas_bon"></div>
+    <ng-template #contenu_bon>
+
+        <div style="background-color: darkgrey;border-radius: 5px">
+            <div *ngFor='let p of listRecommandation | paginate: {itemsPerPage:3, currentPage: p} ' style="display: inline-block;margin-left: 50px;margin-top: 20px;">
+
+                <div class="card" style="width: 18rem;margin-bottom: 35px;margin-right: 5px;">
+                    <div class="card-body">
+
+                        <h5 class="card-title">Type : {{p.type}}</h5>
+                        <p class="card-text">Description : {{p.description}}</p>
+                        <p class="card-text">Price : {{p.price}} DNT</p>
+                        <!--   <button class="btn btn-primary" (click)="archiveInvestmentoffer(p.idino)">Archive</button>-->
+                        <button class="btn btn-primary" (click)="buyInvestmentOffer(p.idino, 1)">Buy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div style="margin-left: 350px;">
+        <pagination-controls (pageChange)="p = $event" ></pagination-controls>
+        </div>
+    </ng-template>
+    <ng-template #contenu_pas_bon></ng-template>
+
+<div >
+    <h2 style="font-family:serif ;margin-left: 300px;">I N V E S T M E N T  &nbsp;  O F F E R</h2>
+    <br>
+    <br>
+
+    <div style="margin-left: 100px;">
+        <div *ngFor='let p of listInvestmentoffers ' style="display: inline-block;">
+
+            <div class="card" style="width: 18rem;margin-bottom: 35px;margin-right: 5px;">
+                <div class="card-body">
+
+                    <h5 class="card-title">Type : {{p.type}}</h5>
+                    <p class="card-text">Description : {{p.description}}</p>
+                    <p class="card-text">Price : {{p.price}} DNT</p>
+                    <!--   <button class="btn btn-primary" (click)="archiveInvestmentoffer(p.idino)">Archive</button>-->
+                    <button class="btn btn-primary" (click)="buyInvestmentOffer(p.idino, 1)">Buy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+    <hr>
+    <br><br>
+    <h3 style="font-family:serif ;margin-left: 300px;">M Y &nbsp; I N V E S T M E N T&nbsp; O F F E R</h3>
+<br>
+    <div style="margin-left: 100px;">
+        <div *ngFor='let p of listInvestorInvestmentoffers ' style="display: inline-block;">
+
+            <div class="card" style="width: 18rem;margin-bottom: 35px;margin-right: 5px;">
+                <div class="card-body">
+                    <h5 class="card-title">Type : {{p.type}}</h5>
+                    <p class="card-text">Description : {{p.description}}</p>
+                    <p class="card-text">Price : {{p.price}} DNT</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</ng-container>

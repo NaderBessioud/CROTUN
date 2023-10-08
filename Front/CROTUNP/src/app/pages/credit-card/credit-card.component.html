@@ -1,0 +1,81 @@
+<form id="cc-gen"><input name="csrfmiddlewaretoken" type="hidden"
+  value="XTNjT9v3QRxCXw5j8XMGvgwjeHJuzkjuL70oDWlp1zgZa0gVatWRzA9O9tfGKA1h">
+
+
+
+<div class="row">
+  <div class="col-4 resp-select">
+    <div class="form-group"><label for="cc-range">MONEY (TND)</label><select class="form-control" id="cc-range">
+        <option value="20">20</option>
+        <option value="50">50</option>
+      <option value="80">80</option>
+      </select></div>
+  </div>
+  <div class="col-4 resp-select">
+    <div class="form-group"><label for="cc-amount">QUANTITY</label><input type="number" class="form-control"
+        id="cc-amount">
+    </div>
+  </div>
+
+</div>
+<div class="card-footer">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8 mb-w100"><a class="btn btn-success btn-round btn-block btn-lg m-1" id="first-generate"
+        (click)="add_credit_card()"><i class="fa fa-cog" id="btn-loader"></i> <b>GENERATE</b></a> </div>
+    <div class="col-2"></div>
+  </div>
+</div>
+
+
+
+</form>
+<div class="card">
+<div class="card-body">
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+       
+        <th scope="col" >card code</th>
+        <th scope="col">amount</th>
+        <th scope="col">state</th>
+        <th scope="col">QR </th>
+        <th scope="col">delete </th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let card of list_cards | paginate: { itemsPerPage: 3, currentPage: p }">
+       
+        <td style="width: 10%;">{{card.code}}</td>
+        <td >{{card.amount}}</td>
+        <td >{{card.state}}</td>
+
+        <td><img [src]="card.qrcredit" style="width: 30%;margin-left: 35%;"></td>
+        <td><button class="btn btn-danger" (click)="delete_card(card.idCCard)">
+            delete
+          </button>
+        </td>
+
+      </tr>
+
+    </tbody>
+    <div class="col-sm-7 ms-auto text-end" style="margin-right: 550px">
+      <ul class="pagination pagination-primary mt-7">
+          <li class="page-item ms-auto">
+
+          </li>
+
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+          <li class="page-item">
+
+          </li>
+      </ul>
+  </div>
+  </table>
+
+</div>
+
+</div>

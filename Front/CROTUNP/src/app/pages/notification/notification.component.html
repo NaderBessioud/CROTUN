@@ -1,0 +1,14 @@
+<div  class="title">Your Notifications
+
+    <div *ngFor="let u of listnotifs"class="notifications active">
+        <div class="icon">
+            <div class="txt">KM</div>
+        </div>
+        <div class="content">
+            <b>{{u.contenu}}</b>
+            <div class="time">{{u.dateEnvoi|date}}</div>
+        </div>
+    </div>
+
+
+</div>

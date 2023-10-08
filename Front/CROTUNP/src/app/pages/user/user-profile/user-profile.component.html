@@ -1,0 +1,424 @@
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<script>
+    function openfileDialog() {
+        $("#fileLoader").click();
+    }
+</script>
+
+</head>
+<body>
+<div class="h-full" fxLayout="column">
+    <div vexContainer>
+        <h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+            <span @fadeInRight class="block">Profile Setting</span>
+        </h1>
+        <p class="description color-gray">Update your account information</p>
+    </div>
+    <div class="user-profile-setting mt-10">
+
+            <mat-tab-group mat-align-tabs="start">
+                <mat-tab label="Profile">
+                    <form [formGroup]="profileFormGroup">
+                    <div class="mt-10">
+                        <ng-container *ngIf="userType === 'customer'">
+
+
+                            <div class="form-field">
+                                <div class="form-label">CIN</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="cin" [(ngModel)]="c.cin" readonly>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-field">
+                                <div class="form-label">FirstName</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="firstName" [(ngModel)]="c.firstName">
+                                </mat-form-field>
+                            </div>
+                            <div class="form-field">
+                                <div class="form-label">LastName</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="lastName" [(ngModel)]="c.lastName">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-field">
+                                <div class="form-label">username</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="username" [(ngModel)]="c.userName">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-field date-field">
+                                <div class="form-label mt-3"></div>
+                                <div class="datepicker-wrapper">
+                                    <input [matDatepicker]="ctrlbirth" (focus)="ctrlbirth.open()"  matInput formControlName="ctrlbirth" readonly [(ngModel)]="c.birthDate">
+                                    <mat-datepicker-toggle matSuffix [for]="ctrlbirth">
+                                        <i class="icon-inf-calendar" matDatepickerToggleIcon></i>
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #ctrlbirth></mat-datepicker>
+                                </div>
+                            </div>
+                            <div class="form-field">
+                                <div class="form-label">Gender</div>
+                                <mat-radio-group formControlName="gender" [value]="c.Sex" [(ngModel)]="c.Sex">
+                                    <mat-radio-button value="male">Male</mat-radio-button>
+                                    <mat-radio-button value="female">Female</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+
+                            <div class="form-field">
+                                <div class="form-label">Email
+                                    <button mat-raised-button class="change-enable" (click)="toggleDisable('email')" ><span>Change</span></button></div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="ctrlemail" [readonly]="disableEmail" [class.disabled] = "disableEmail" [(ngModel)]="c.email">
+                                </mat-form-field>
+                            </div>
+
+
+
+
+
+
+                            <div class="form-field">
+                                <div class="form-label">Address</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="addressline1" [(ngModel)]="c.address" (click)="openMapwindow()">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-field">
+                                <div class="form-label">Job</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="job" [(ngModel)]="c.job">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-field">
+                                <div class="form-label">Salary</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="salary" [(ngModel)]="c.salary">
+                                </mat-form-field>
+                            </div>
+                        </ng-container>
+
+
+
+                        <ng-container *ngIf="userType === 'agent'">
+
+
+                            <div class="form-field">
+                                <div class="form-label">CIN</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="cin" [(ngModel)]="a.cin">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-field">
+                                <div class="form-label">FirstName</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="firstName" [(ngModel)]="a.firstName">
+                                </mat-form-field>
+                            </div>
+                            <div class="form-field">
+                                <div class="form-label">LastName</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="lastName" [(ngModel)]="a.lastName">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-field">
+                                <div class="form-label">username</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="username" [(ngModel)]="a.userName" name="userName">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-field date-field">
+                                <div class="form-label mt-3"></div>
+                                <div class="datepicker-wrapper">
+                                    <input [matDatepicker]="ctrlbirth" (focus)="ctrlbirth.open()"  matInput formControlName="ctrlbirth" readonly [(ngModel)]="a.birthDate">
+                                    <mat-datepicker-toggle matSuffix [for]="ctrlbirth">
+                                        <i class="icon-inf-calendar" matDatepickerToggleIcon></i>
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #ctrlbirth></mat-datepicker>
+                                </div>
+                            </div>
+
+
+                            <div class="form-field">
+                                <div class="form-label">Email
+                                    <button mat-raised-button class="change-enable" (click)="toggleDisable('email')" ><span>Change</span></button></div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="ctrlemail" [readonly]="disableEmail" [class.disabled] = "disableEmail" [(ngModel)]="a.email">
+                                </mat-form-field>
+                            </div>
+
+
+
+
+
+
+
+                            <div class="form-field">
+                                <div class="form-label">Address</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="addressline1" [(ngModel)]="a.address" (click)="openMapwindow()">
+                                </mat-form-field>
+                            </div>
+
+
+
+                            <div class="form-field">
+                                <div class="form-label">Salary</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="salary" [(ngModel)]="a.salary">
+                                </mat-form-field>
+                            </div>
+                        </ng-container>
+
+
+
+
+
+                        <ng-container *ngIf="userType === 'investor'">
+
+
+                            <div class="form-field">
+                                <div class="form-label">CIN</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="cin" [(ngModel)]="i.CIN" readonly>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-field">
+                                <div class="form-label">FirstName</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="firstName" [(ngModel)]="i.firstName">
+                                </mat-form-field>
+                            </div>
+                            <div class="form-field">
+                                <div class="form-label">LastName</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="lastName" [(ngModel)]="i.lastName">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-field">
+                                <div class="form-label">username</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="username" [(ngModel)]="i.userName">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-field date-field">
+                                <div class="form-label mt-3"></div>
+                                <div class="datepicker-wrapper">
+                                    <input [matDatepicker]="ctrlbirth" (focus)="ctrlbirth.open()"  matInput formControlName="ctrlbirth" readonly [(ngModel)]="i.birthDate">
+                                    <mat-datepicker-toggle matSuffix [for]="ctrlbirth">
+                                        <i class="icon-inf-calendar" matDatepickerToggleIcon></i>
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #ctrlbirth></mat-datepicker>
+                                </div>
+                            </div>
+
+
+                            <div class="form-field">
+                                <div class="form-label">Email
+                                    <button mat-raised-button class="change-enable" (click)="toggleDisable('email')" ><span>Change</span></button></div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="ctrlemail" [readonly]="disableEmail" [class.disabled] = "disableEmail" [(ngModel)]="i.email">
+                                </mat-form-field>
+                            </div>
+
+
+
+
+
+
+
+                            <div class="form-field">
+                                <div class="form-label">Address</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="addressline1" [(ngModel)]="i.address" (click)="openMapwindow()">
+                                </mat-form-field>
+                            </div>
+
+
+                        </ng-container>
+
+
+
+
+                        <ng-container *ngIf="userType === 'manager'">
+
+
+
+                            <div class="form-field">
+                                <div class="form-label">CIN</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="cin" [(ngModel)]="m.CIN" readonly>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-field">
+                                <div class="form-label">FirstName</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="firstName" [(ngModel)]="m.firstName">
+                                </mat-form-field>
+                            </div>
+                            <div class="form-field">
+                                <div class="form-label">LastName</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="lastName" [(ngModel)]="m.lastName">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-field">
+                                <div class="form-label">username</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="username" [(ngModel)]="m.userName">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-field date-field">
+                                <div class="form-label mt-3"></div>
+                                <div class="datepicker-wrapper">
+                                    <input [matDatepicker]="ctrlbirth" (focus)="ctrlbirth.open()"  matInput formControlName="ctrlbirth" readonly [(ngModel)]="m.birthDate">
+                                    <mat-datepicker-toggle matSuffix [for]="ctrlbirth">
+                                        <i class="icon-inf-calendar" matDatepickerToggleIcon></i>
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #ctrlbirth></mat-datepicker>
+                                </div>
+                            </div>
+
+
+                            <div class="form-field">
+                                <div class="form-label">Email
+                                    <button mat-raised-button class="change-enable" (click)="toggleDisable('email')" ><span>Change</span></button></div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="ctrlemail" [readonly]="disableEmail" [class.disabled] = "disableEmail" [(ngModel)]="m.email">
+                                </mat-form-field>
+                            </div>
+
+
+
+
+
+
+
+                            <div class="form-field">
+                                <div class="form-label">Address</div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="addressline1" [(ngModel)]="m.address" (click)="openMapwindow()">
+                                </mat-form-field>
+                            </div>
+
+
+                        </ng-container>
+
+
+
+                    </div>
+
+                    <div class="actions mt-10 justify-between items-center" fxLayout="row" fxLayoutGap="8px">
+                        <button mat-raised-button class="step-next primary-action" (click)="updateProfile()">update</button>
+                    </div>
+        </form>
+                </mat-tab>
+
+        <mat-tab label="password">
+            <form [formGroup]="profileFormGroup">
+            <div class="mt-10">
+                <div class="form-field">
+                    <ng-container *ngIf="userType === 'customer'">
+                    <div class="form-label">Address</div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>old password</mat-label>
+                        <input formControlName="pass" matInput [(ngModel)]="c.password" type="password">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>new password</mat-label>
+                        <input formControlName="newpass1" matInput [(ngModel)]="newpass1" type="password">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Repeat new password</mat-label>
+                        <input formControlName="newpass2" matInput [(ngModel)]="newpass2" type="password">
+                    </mat-form-field>
+                    </ng-container>
+
+                    <ng-container *ngIf="userType === 'agent'">
+                        <div class="form-label">Address</div>
+                        <mat-form-field appearance="outline">
+                            <mat-label>old password</mat-label>
+                            <input formControlName="pass" matInput [(ngModel)]="a.password" type="password">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>new password</mat-label>
+                            <input formControlName="newpass1" matInput [(ngModel)]="newpass1" type="password">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Repeat new password</mat-label>
+                            <input formControlName="newpass2" matInput [(ngModel)]="newpass2" type="password">
+                        </mat-form-field>
+                    </ng-container>
+
+                    <ng-container *ngIf="userType === 'investor'">
+                        <div class="form-label">Address</div>
+                        <mat-form-field appearance="outline">
+                            <mat-label>old password</mat-label>
+                            <input formControlName="pass" matInput [(ngModel)]="i.password" type="password">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>new password</mat-label>
+                            <input formControlName="newpass1" matInput [(ngModel)]="newpass1" type="password">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Repeat new password</mat-label>
+                            <input formControlName="newpass2" matInput [(ngModel)]="newpass2" type="password">
+                        </mat-form-field>
+                    </ng-container>
+
+                    <ng-container *ngIf="userType === 'customer'">
+                        <div class="form-label">update your password</div>
+                        <mat-form-field appearance="outline">
+                            <mat-label>old password</mat-label>
+                            <input formControlName="pass" matInput [(ngModel)]="m.password" type="password" (focusout)="checkPass()">
+                            <p class="EmailExist" [ngStyle]="{'visibility':oldpassmatch ? 'visible' : 'hidden','color':oldpassmatch ? 'red' : 'red' }">{{oldpassmatchString}}</p>
+
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>new password</mat-label>
+                            <input formControlName="newpass1" matInput [(ngModel)]="newpass1" type="password">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Repeat new password</mat-label>
+                            <input formControlName="newpass2" matInput [(ngModel)]="newpass2" type="password" (keyup)="checkTwoPass()">
+                            <p class="EmailExist" [ngStyle]="{'visibility':passMatch ? 'visible' : 'hidden','color':passMatch ? 'red' : 'red' }">{{passmatchString}}</p>
+
+                        </mat-form-field>
+                    </ng-container>
+
+
+
+
+                </div>
+            </div>
+
+
+                <div class="actions mt-10 justify-between items-center" fxLayout="row" fxLayoutGap="8px">
+                    <button mat-raised-button class="step-next primary-action" (click)="updatePassword()">update</button>
+                </div>
+            </form>
+        </mat-tab>
+
+            </mat-tab-group>
+
+
+
+
+    </div>
+</div>
+</body>

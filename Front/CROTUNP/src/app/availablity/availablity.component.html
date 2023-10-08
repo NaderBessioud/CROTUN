@@ -1,0 +1,150 @@
+
+
+<ng-container *ngIf="type=='agent'">
+<button class="btn btn-round btn-sm btn-success" (click)="open(mymodal1)"> Add availability</button>
+<br><br>
+<ng-template #mymodal1 let-modal1>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title" >Add availability</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal1.dismiss('Cross click')">
+            <span aria-hidden="true" (click)="cancel()">×</span>
+        </button>
+
+    </div>
+    <div class="center" style="margin-right: 20px;margin-left: 20px;">
+        <form>
+            <div class="mb-3">
+                <label  class="form-label">From</label>
+                <input type="time" class="form-control" id="time1"  [(ngModel)]="time1" name="time1">
+            </div>
+            <div class="mb-3">
+                <label  class="form-label">to</label>
+                <input type="time" class="form-control" id="time2"  [(ngModel)]="time2" name="time2">
+            </div>
+            <div class="mb-3">
+                <label  class="form-label">Date</label>
+                <input type="date" class="form-control" id="date"   [(ngModel)]="date" name="date">
+            </div>
+            <div class="mb-3">
+                <label  class="form-label">id</label>
+                <input type="number" class="form-control" id="id"   [(ngModel)]="id" name="id">
+            </div>
+
+            <br>
+            <div style="margin-left: 20px;margin-bottom: 20px;">
+                <button style="margin-right: 10px;" type="button" class="btn btn-success" (click)="getAllAvai(availablity)" >Add availability</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+
+
+
+<h3 style="font-family:serif ;">Y o u r &nbsp; a p p o i n t m e n t</h3>
+
+<table class="table table-hover table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">Date created</th>
+        <th scope="col">Date Availability</th>
+        <th scope="col">Start</th>
+        <th scope="col">End</th>
+
+    </tr>
+    </thead>
+
+    <tbody  *ngFor='let p of listagentavai ' >
+    <tr>
+
+        <td>{{p.dateCreated}} </td>
+        <td>{{p.dateAva}}</td>
+        <td>{{p.startDate}}</td>
+        <td>{{p.endHour}} </td>
+
+    </tr>
+
+
+    </tbody>
+
+</table>
+
+</ng-container>
+
+
+
+
+
+<ng-container *ngIf="type=='customer'">
+
+
+    <h3 style="font-family:serif ;">A v a i l a b l e&nbsp; a p p o i n t m e n t</h3>
+
+<table class="table table-hover table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">Date created</th>
+        <th scope="col">Date Availability</th>
+        <th scope="col">Start</th>
+        <th scope="col">End</th>
+
+    </tr>
+    </thead>
+
+    <tbody  *ngFor='let p of listAllAvai ' >
+    <tr>
+
+        <td>{{p.dateCreated}} </td>
+        <td>{{p.dateAva}}</td>
+        <td>{{p.startDate}}</td>
+        <td>{{p.endHour}} </td>
+        <td><button class="btn btn-danger" (click)="getaddAvaiCustomer(p.idAvailblity,8)" >Reserve</button>
+        </td>
+
+    </tr>
+
+
+    </tbody>
+
+</table>
+
+
+
+    <h3 style="font-family:serif ;">M y&nbsp; a p p o i n t m e n t</h3>
+
+<table class="table table-hover table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">Date created</th>
+        <th scope="col">Date Availability</th>
+        <th scope="col">Start</th>
+        <th scope="col">End</th>
+
+    </tr>
+    </thead>
+
+    <tbody  *ngFor='let p of listcustomeravai ' >
+    <tr>
+
+        <td>{{p.dateCreated}} </td>
+        <td>{{p.dateAva}}</td>
+        <td>{{p.startDate}}</td>
+        <td>{{p.endHour}} </td>
+
+
+    </tr>
+
+
+    </tbody>
+
+</table>
+
+
+
+</ng-container>
+
+
+
+<!--
+<full-calendar [options]="calendarOptions"></full-calendar>
+-->

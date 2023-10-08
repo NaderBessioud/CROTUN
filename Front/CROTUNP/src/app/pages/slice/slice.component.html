@@ -1,0 +1,48 @@
+<h2>Add Slices</h2>
+<label for="orders" style="margin-right: 15px">Select Reference:</label>
+    <select id="orders" style="margin-right: 15px" [(ngModel)]="selectedOption"  name="first">
+        <ng-container *ngFor='let p of sliceLoan'>
+        <option *ngIf="p.stateL=='ACCEPTED'" style="margin-right: 15px" value ='{{p.idL}}'>
+            {{p.loanRef}}
+        </option>
+        </ng-container>
+    </select>
+<button  style="margin-right: 15px" class="btn btn-outline-success" (click)="addslice(selectedOption,Slice2)">Confirm</button>
+<button  style="margin-right: 15px" class="btn btn-outline-success" (click)="exportToPDF()" >Download PDF</button>
+
+<br>
+<br>
+
+
+<div class="row">
+<div class="col-md-12">
+    <div class="card" class="text-center">
+        <table class="table table-hover" style="border: 0.5px solid black;"> <thead >
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>reference</th>
+        <th>repaymentDate</th>
+        <th>verified</th>
+        <th>Price</th>
+        <th>rip</th>
+        </thead> <tbody>
+        <tr *ngFor='let p of listSlices | paginate: {itemsPerPage:5,currentPage:p }'
+            style="background-color: rgba(255,255,255,0.51)">
+            <td>{{p.loanSlice.customerLoans.firstName}}</td>
+            <td>{{p.loanSlice.customerLoans.lastName}}</td>
+            <td>{{p.reference}}</td>
+            <td>{{p.repaymentDate}}</td>
+            <td>{{p.verified}}</td>
+            <td>{{p.price}}</td>
+            <td>{{p.rip}} </td>
+
+            <ng-template #mymodal let-modal>...</ng-template>
+
+            
+        </tr>
+        </tbody>
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+</div>
+</div>

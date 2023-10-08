@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-4" >
+            <div class="card">
+                <img class="card-img-top" src="assets/img/solde1.jpg" >
+
+                <div class="card-body">
+                    <h5 class="card-title">Payment avec solde</h5>
+
+                    <button class="btn btn-success" (click)="payment_avec_sold()">PAYE SLICE</button>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <img class="card-img-top" src="assets/img/mastercard.png" >
+                <div class="card-body">
+                    <h5 class="card-title">Payment avec Carte bancaire</h5>
+
+                    <button class="btn btn-success" [routerLink]="['/panel/enligne',id]">PAYEE SLICE</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <img class="card-img-top" src="assets/img/recu.png" >
+                <div class="card-body">
+                    <h5 class="card-title">UPLOAD reçu</h5>
+
+                    <input class="x" type="file" id="avatar" name="avatar" (change)="selectFile($event)"
+                        accept="image/png, image/jpg">
+
+
+                    <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">ADD RECU</button>
+                    <div *ngIf="currentFile" class="progress my-3">
+                        <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                            attr.aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100"
+                            [ngStyle]="{ width: progress + '%' }">
+                            {{ progress }}%
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>

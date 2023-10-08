@@ -1,0 +1,344 @@
+<div class="h-full discover-grid-wrapper" fxLayout="column" *ngIf="x=='agent'">
+    <div fxFlex="none">
+        <div vexContainer>
+            <h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+                <span @fadeInRight class="block">View Loans</span>
+            </h1>
+            <p class="description color-gray" style="font-size: 15px">Manage Customer Loans</p>
+            <div fxLayout="row" fxLayoutAlign="start center" class="pt-6">
+                <nav class="vex-tabs border-0" fxFlex="auto" mat-tab-nav-bar>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<mat-tab-group *ngIf="x=='agent'">
+    <mat-tab label="Loans" >
+        <br>
+        <br>
+        <div class="row" *ngIf="x=='agent'">
+            <div class="col-md-12">
+                <div class="card" class="text-center">
+                    <!--            <nav class="navbar">
+                                    <input class="form-control" type="text" #commonName name="firstname" [ngModel]="fN" (ngModelChange)="Search(fN)"
+                                    placeholder="Enter First Name">
+                                </nav>-->
+                    <table class="table table-hover" style="border: 0.5px solid black;"> <thead>
+                    <th (click)="sort('id')" >&#8597; First Name <i class="fa fa-sort"></i></th>
+                    <th (click)="sort('id')">&#8597; Last Name</th>
+                    <th (click)="sort('id')">&#8597; Address</th>
+                    <th (click)="sort('id')">&#8597; Salary</th>
+                    <th (click)="sort(listLoans.totalAmount)">&#8597; Total Amount</th>
+                    <th (click)="sort('id')">&#8597; Loan Period In Months</th>
+                    <th (click)="sort('id')">&#8597; Interest</th>
+                    <th (click)="sort('id')">&#8597; Score</th>
+                    <th (click)="sort('id')">&#8597; Reference</th>
+                    <th (click)="sort('id')">&#8597; State</th>
+                    <th (click)="sort('id')">&#8597; Action</th>
+                    </thead> <tbody>
+                    <tr *ngFor='let p of listLoans | orderBy:key :reverse|paginate: {itemsPerPage:3,currentPage:p };'
+                        style="background-color: rgba(255,255,255,0.51)">
+                        <td>{{p.customerLoans.firstName}}</td>
+                        <td>{{p.customerLoans.lastName}}</td>
+                        <td>{{p.customerLoans.address}}</td>
+                        <td>{{p.customerLoans.salary}}</td>
+                        <td>{{p.totalAmount}}</td>
+                        <td>{{p.loanPeriodInMonths}}</td>
+                        <td>{{p.interest}} </td>
+                        <td>{{p.score}}</td>
+                        <td>{{p.loanRef}}</td>
+                        <td>{{p.stateL}}</td>
+
+                        <ng-template #mymodal let-modal>...</ng-template>
+                        <button type="button" class="btn btn-outline-success"
+                                (click)="acceptLoan(p.idL,Loan)" >Accept</button>
+                        <button type="button" class="btn btn-outline-danger"
+                                (click)="denyLoan(p.idL,Loan)" >Deny</button>
+
+                        <button type="button" class="btn btn-outline-danger"
+                                (click)="openDialog(template)">Details
+                        </button>
+
+                        <ng-template #template>
+                            <h1>Loan Details</h1>
+                            <br>
+                            <br>
+                            <mat-dialog-content style="width: 750px">
+
+                                <div class="col-md-8" style="margin-left: 15%">
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0">Full Name</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    {{p.customerLoans.firstName}}   {{p.customerLoans.lastName}}
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0">Job</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    {{p.customerLoans.job}}
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0">Social Rate</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    {{p.customerLoans.socialRate}}
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0">Number Children</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    {{p.customerLoans.numberChildren}}
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0">Guarantor</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    {{p.guranteeLoan.fristName}}   {{p.guranteeLoan.lastName}}
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0">Adress</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    {{p.guranteeLoan.address}}
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0">Description</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    {{p.guranteeLoan.description}}
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </mat-dialog-content>
+                            <mat-dialog-actions align="end">
+                                <button mat-button matDialogClose color="primary">Return</button>
+                            </mat-dialog-actions>
+                        </ng-template>
+
+                    </tr>
+                    </tbody>
+
+                    </table>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+
+            </div>
+            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+            <div id="chartContainer3" style="height: 370px; width: 100%;"></div>
+            <div id="chartContainer4" style="height: 370px; width: 100%;"></div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <button (click)="loadData()" *ngIf="x=='agent'">Load</button>
+    </mat-tab>
+    <mat-tab label="Slice" (click)="onPress()">
+        <br>
+        <br>
+        <vex-slice></vex-slice>
+    </mat-tab>
+    <mat-tab label="Amortization Table" (click)="onPress()">
+        <br>
+        <br>
+        <vex-loandetails></vex-loandetails>
+    </mat-tab>
+</mat-tab-group>
+
+
+
+<!-------------------------------------------------------------------------------------------------------->
+<div class="h-full discover-grid-wrapper" fxLayout="column" *ngIf="x=='customer'">
+    <div fxFlex="none">
+        <div vexContainer>
+            <h1 class="display-1 mt-4 mb-1 page-title" fxLayout="row" fxLayoutAlign="start center">
+                <span @fadeInRight class="block">Loan Request</span>
+            </h1>
+            <p class="description color-gray" style="font-size: 15px">Fill your loan request</p>
+            <div fxLayout="row" fxLayoutAlign="start center" class="pt-6">
+                <nav class="vex-tabs border-0" fxFlex="auto" mat-tab-nav-bar>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="x=='customer'">
+    <form  >
+        <label for="exampleInputEmail1" style="font-size: 25px;">Total Amount</label>
+        <br>
+        <br>
+        <mat-slider style="background-color: #EAE9EF"
+                    thumbLabel
+                    [displayWith]="formatLabel"
+                    tickInterval="100"
+                    step="1000"
+                    min="0"
+                    max="10000"
+                    aria-label="units"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    name="selectedAmount1" [(ngModel)]="selectedAmount1" #commonName1 >
+        </mat-slider>
+
+        <br>
+        <br>
+        <label for="exampleInputPassword1" style="font-size: 25px;">Loan Period</label>
+        <br>
+        <br>
+        <mat-slider style="background-color: #EAE9EF"
+                    thumbLabel
+                    [displayWith]="formatLabel"
+                    tickInterval="1"
+                    step="1"
+                    min="1"
+                    max="48"
+                    class="form-control" id="exampleInputPassword1"  #commonName2 [(ngModel)]="selectedPeriod" name="selectedPeriod">
+
+        </mat-slider>
+        <br>
+        <br>
+        <label for="exampleInputPassword2" style="font-size: 25px;">Interest Rate</label>
+        <br>
+        <br>
+        <mat-slider style="background-color: #EAE9EF"
+                    thumbLabel
+                    [displayWith]="formatLabel"
+                    tickInterval="1"
+                    step="0.01"
+                    min="0.1"
+                    max="0.2" id="exampleInputPassword2" #commonName3 [(ngModel)]="selectedInterest" name="selectedInterest">Interest Rate</mat-slider>
+
+        <br>
+        <br>
+        <button type="submit" class="btn btn-primary" (click)="sim()">Simulate</button>
+        <br>
+        <br>
+    </form>
+    <br>
+    <br>
+    <input style="width: 1525px;font-size: 22px; background-color: transparent" name="selectedAmount" [(ngModel)]="selectedAmount"   >
+
+    <br>
+    <br>
+</div>
+
+
+
+<div class="form-style-10" *ngIf="x=='customer'">
+    <h1>Fill your loan request<span></span></h1>
+    <form>
+
+        <div class="section"><span>1</span>Loan Details</div>
+        <div class="inner-wrap">
+            <label>Total Amount <input type="text" name="field1" [(ngModel)]="Loan.totalAmount"
+                                       [ngModelOptions]="{standalone: true}"></label>
+            <label>Loan Purpose <select name="field2" [(ngModel)]="Loan.loanPurpose"
+                                        [ngModelOptions]="{standalone: true}">
+                <option value="Car">Car</option>
+                <option value="Furniture_equipment">Furniture/equipment</option>
+                <option value="Radio_TV">Radio/TV</option>
+                <option value="DomesticAppliances">Domestic Appliances</option>
+                <option value="Repairs">Repairs</option>
+                <option value="Education">Education</option>
+                <option value="Business">Business</option>
+                <option value="Vacation_others">Vacation/others</option>
+            </select></label>
+            <label>loan Period In Months <input type="number" name="field1" [(ngModel)]="Loan.loanPeriodInMonths"
+                                                [ngModelOptions]="{standalone: true}"
+                                                min="1" max="48"></label>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <div class="section"><span>2</span>Guarantor Details</div>
+        <div class="inner-wrap">
+            <label>First Name <input type="text" name="field2" [(ngModel)]="Loan.guranteeLoan.fristName"
+                                     [ngModelOptions]="{standalone: true}"></label>
+            <label>Last Name <input type="text" name="field2" [(ngModel)]="Loan.guranteeLoan.lastName"
+                                    [ngModelOptions]="{standalone: true}"></label>
+            <label>Address <textarea name="field2" [(ngModel)]="Loan.address"
+                                     [ngModelOptions]="{standalone: true}"></textarea></label>
+            <label>Description <textarea name="field2" [(ngModel)]="Loan.guranteeLoan.description"
+                                         [ngModelOptions]="{standalone: true}"></textarea></label>
+        </div>
+
+        <button type="button" class="btn btn-success" (click)="addLoan(Loan,template2)">Confirm</button>
+    </form>
+</div>
+<ng-template #template2>
+    <h1>Sucess! Your loan Request  Has Been Sent</h1>
+    <br>
+    <br>
+    <mat-dialog-content style="width: 350px">
+
+        <div class="col-md-8" style="margin-left: 15%">
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button matDialogClose color="primary">Return</button>
+    </mat-dialog-actions>
+</ng-template>
+
+
+
+
+
+
+
+
+
+<div class="row" id="client" >
+
+    <form *ngIf !="form">
+        <p>Test</p>
+        <div class="row" class="col-md-6">
+            <input type="text" placeholder="Loan Name" [(ngModel)]="Loan.idL"
+                   [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="row" class="col-md-6">
+            <input type="number" placeholder="totalAmount" [(ngModel)]="Loan.totalAmount"
+                   [ngModelOptions]="{standalone: true}">
+
+        </div>
+        <br>
+
+
+
+    </form>
+</div>

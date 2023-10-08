@@ -1,0 +1,78 @@
+<header>
+  <vex-sold></vex-sold>
+</header>
+
+<button class="btn btn-success" (click)="get_all_Paye()">
+  Slice Payee
+</button>
+
+<button class="btn btn-success"   (click)="get_all_Non_Paye()">
+  Slice Non Payee
+</button>
+
+<input class="form-control" [(ngModel)]="term" placeholder="Search" type="text" >
+
+<div class="card" style="display:{{x}};">
+  <div class="card-body">
+    
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+
+          <th scope="col">ref</th>
+          <th scope="col">date</th>
+
+          <th scope="col">state</th>
+          <th scope="col">amount</th>
+
+          <th scope="col">rib</th>
+
+          <th scope="col">PAYEE </th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let slice of list_slices | filter:term | paginate: { itemsPerPage: 3, currentPage: p } ">
+          
+          <td>{{slice.ref}}</td>
+          <td>{{slice.repaymentDate}}</td>
+          <td>{{slice.verified}}</td>
+          <td>{{slice.price}}</td>
+          <td>{{slice.rip}}</td>
+          
+          <td *ngIf="slice.verified"><button class="btn btn-secondary" disabled>
+              PAYEE
+            </button>
+          </td>
+          <td *ngIf="!slice.verified"><button class="btn btn-success"
+              [routerLink]="['/panel/methodepayment',slice.idS]">
+              PAYEE
+            </button>
+          </td>
+
+
+        </tr>
+
+    
+
+   
+
+      </tbody>
+      <div class="col-sm-7 ms-auto text-end">
+        <ul class="pagination pagination-primary mt-7">
+          <li class="page-item ms-auto">
+
+          </li>
+
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+          <li class="page-item">
+
+          </li>
+        </ul>
+      </div>
+    </table>
+    
+  </div>
+
+</div>

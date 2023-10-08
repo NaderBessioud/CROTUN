@@ -1,0 +1,76 @@
+<div class="card-header card-header-primary">
+    <h4 class="card-title ">Table des constat</h4>
+
+
+</div>
+<div class="card-body">
+    <button type="button" class="btn btn-success"(click)="ConfirmDevice()">Confirm</button>
+    <button type="button" class="btn btn-danger" (click)="DenyService()">Deny</button>
+    <div class="table-responsive">
+
+
+
+        <br>
+        <div class="example-container2">
+            <div class="example-container">
+                <table mat-table [dataSource]="acts" class="table" matSort  >
+
+                    <ng-container matColumnDef="url" >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary">
+
+                            url </th>
+                        <td mat-cell *matCellDef="let element"> {{element.url}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="page" >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary">
+
+
+                            page</th>
+                        <td mat-cell *matCellDef="let element"> {{element.page}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef= "ip" >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class=" text-primary">
+
+                            ip </th>
+                        <td mat-cell *matCellDef="let element"> {{element.ip}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="loggedTime" >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"> loggedTime </th>
+                        <td mat-cell *matCellDef="let element"> {{element.loggedTime}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="userAgent" >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-primary"> userAgent</th>
+                        <td mat-cell *matCellDef="let element"> {{element.userAgent}} </td>
+                    </ng-container>
+
+
+
+
+
+
+
+
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+            <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+
+        </div>
+
+
+
+
+    </div>
+
+
+</div>
+

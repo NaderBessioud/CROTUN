@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-round btn-sm btn-success" (click)="open(mymodal1)">Add new Complaint</button>
+            <td>Treated Complaint :{{countComplaint}}%</td>
+
+            <ng-template #mymodal1 let-modal1>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title" >Add new Complaint</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal1.dismiss('Cross click')">
+                        <span aria-hidden="true" (click)="cancel()">×</span>
+                    </button>
+
+                </div>
+                <div class="center">
+                    <form>
+                        <div class="row" class="col-md-6">
+                            <input type="text" placeholder="Subject" [(ngModel)]="complaint.ComplaintSubject"
+                                   [ngModelOptions]="{standalone : true}">
+                        </div>
+                        <div class="row" class="col-md-6">
+                            <input type="date" placeholder="Date" [(ngModel)]="complaint.Date"
+                                   [ngModelOptions]="{standalone : true}">
+                        </div>
+                        <div class="row" class="col-md-6">
+                            <input type="text" placeholder="Description" [(ngModel)]="complaint.Text"
+                                   [ngModelOptions]="{standalone : true}">
+                        </div>
+                        <br>
+                        <button type="button" class="btn btn-success" (click)="addComplaint(complaint,1,1,1,1,complaint.ComplaintSubject,complaint.Text)" (click)="modal1.close('Save click')">Add</button>
+                        <button type="button" class="btn btn-info" (click)="modal1.close('Save click')" >Cancel</button>
+                    </form>
+                </div>
+            </ng-template>
+            <br><br>
+            <ng-template #mymodal1 let-modal1>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title" >Add new Complaint</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal1.dismiss('Cross click')">
+                        <span aria-hidden="true" (click)="cancel()">×</span>
+                    </button>
+
+                </div>
+                <div class="center">
+                    <form>
+                        <div class="row" class="col-md-6">
+                            <input type="text" placeholder="Subject" [(ngModel)]="complaint.ComplaintSubject"
+                                   [ngModelOptions]="{standalone : true}">
+                        </div>
+                        <div class="row" class="col-md-6">
+                            <input type="date" placeholder="Date" [(ngModel)]="complaint.Date"
+                                   [ngModelOptions]="{standalone : true}">
+                        </div>
+                        <div class="row" class="col-md-6">
+                            <input type="text" placeholder="Description" [(ngModel)]="complaint.Text"
+                                   [ngModelOptions]="{standalone : true}">
+                        </div>
+                        <br>
+                        <button type="button" class="btn btn-success" (click)="addComplaint(complaint,1,1,1,1,complaint.ComplaintSubject,complaint.Text)" (click)="modal1.close('Save click')">Add</button>
+                        <button type="button" class="btn btn-info" (click)="modal1.close('Save click')" >Cancel</button>
+                    </form>
+                </div>
+            </ng-template>
+
+            <div class="row">
+                <div class="card" class="text-center">
+                    <table class="table">
+                        <thead style="background-color: rgb(192, 183, 183);">
+                        <th>Subject</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor='let p of listComplaints'>
+                            <td>{{p.complaintSubject}}</td>
+                            <td>{{p.date}}</td>
+                            <td>{{p.text}}</td>
+                            <td><button type="button" class="btn btn-outline-primary"
+                                        (click)="open(mymodal)">Theme</button>
+                                <ng-template #mymodal let-modal>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="modal-basic-title">Theme</h4>
+                                        <button type="button" class="close" aria-label="Close"
+                                                (click)="modal.dismiss('Cross click')">
+                                            <span aria-hidden="true" (click)="cancel()">×</span>
+
+                                        </button>
+
+                                    </div>
+                                    <div>
+                                        <form>
+                                            <div class="modal-body">
+
+                                                <div class="row" class="col-md-5">
+                                                    <label>Theme of complaint : {{themeComplaints}}</label>
+                                                    <label></label>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+
+                                                <button type="button" class="btn btn-info"
+                                                        (click)="modal.close('Save click')" (click)="cancel()">Cancel</button>
+                                                <button class="btn btn-success"(click)="themeComplaint(p.idL)" (click)="modal.close('Save click')">Validate</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </ng-template>
+                                <button type="button" class="btn btn-outline-danger"
+                                        (click)="deleteComplaint(p.idL)">delete</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
